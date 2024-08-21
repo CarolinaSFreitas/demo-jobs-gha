@@ -36,5 +36,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Get Build Artifacts
+        uses: actions/download-artifact@v3      #download do artefato do job de build
+        with:
+          name: dist-files-for-deploy     #essa etapa pegará o zip resultante pelo upload-artifact e descompactará na pasta dist do job de deploy 
+      - name: Output Contents
+        run: ls 
       - name: Deploy
         run: echo "Deploying..."
