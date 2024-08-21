@@ -9,6 +9,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm        #o cache das dependencias do npm será salvo na pasta ~/.npm (nos servidores do github) e reaproveitado em outros jobs
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #hashFiles gera um hash dos arquivos passados, nesse caso, do package-lock.json(onde fica salvo as dependencias) e salva na pasta ~/.npm 
       - name: Install dependencies
         run: npm ci
       - name: Lint code
@@ -23,6 +28,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm        #o cache das dependencias do npm será salvo na pasta ~/.npm (nos servidores do github) e reaproveitado em outros jobs
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} #hashFiles gera um hash dos arquivos passados, nesse caso, do package-lock.json(onde fica salvo as dependencias) e salva na pasta ~/.npm 
       - name: Install dependencies
         run: npm ci
       - name: Build website
